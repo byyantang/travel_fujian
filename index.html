@@ -40,43 +40,6 @@
 
   .wrap { max-width: 960px; margin: 0 auto; }
 
-  /* ============ 顶部导航 ============ */
-  .nav {
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    display: flex;
-    gap: 8px;
-    padding: 10px 6px;
-    margin: -16px -14px 18px;
-    background: rgba(238, 243, 250, 0.92);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(26, 58, 107, 0.08);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .nav::-webkit-scrollbar { display: none; }
-  .nav a {
-    flex: 0 0 auto;
-    color: var(--c-primary);
-    text-decoration: none;
-    font-size: var(--font-small);
-    font-weight: 600;
-    padding: 6px 14px;
-    border-radius: var(--radius-pill);
-    background: #fff;
-    box-shadow: 0 1px 4px rgba(26, 58, 107, 0.08);
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .nav a:hover, .nav a:active {
-    color: #fff;
-    background: var(--c-secondary);
-  }
-
   /* ============ 片头 ============ */
   .opening {
     text-align: center;
@@ -423,7 +386,6 @@
   /* ============ 平板 / 电脑 ============ */
   @media (min-width: 640px) {
     body { padding: 24px; }
-    .nav { margin: -24px -24px 22px; justify-content: center; gap: 14px; }
     :root { --font-title: 28px; --font-body: 15px; }
     .cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
     .credits .cast { grid-template-columns: repeat(4, 1fr); }
@@ -435,7 +397,6 @@
   /* ============ 打印 ============ */
   @media print {
     body { background: #fff; padding: 0; }
-    .nav { display: none; }
     .opening { border-radius: 0; box-shadow: none; }
     .card, table, .credits { box-shadow: none; }
     .card { break-inside: avoid; }
@@ -447,13 +408,6 @@
 </head>
 <body>
 <div class="wrap">
-
-  <nav class="nav">
-    <a href="#overview">🎞️ 分镜</a>
-    <a href="#spots">📍 场景</a>
-    <a href="#clothing">👕 造型</a>
-    <a href="#tips">🎬 片尾</a>
-  </nav>
 
   <!-- 片头 -->
   <div class="opening">
