@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>蜀夏·闽秋 · 八年后，我们再出发</title>
+<style>
+  /* ============ 字体模块 ============ */
+  :root {
+    --font-title: 24px;
+    --font-subtitle: 13px;
+    --font-h2: 17px;
+    --font-card-title: 16px;
+    --font-body: 14px;
+    --font-small: 12.5px;
+    --font-tiny: 11.5px;
+
+    --c-primary: #1a3a6b;
+    --c-secondary: #0b6e99;
+    --c-bg: #eef3fa;
+    --c-text: #222;
+    --c-muted: #5a6b82;
+
+    --radius-card: 16px;
+    --radius-pill: 20px;
+  }
+
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    padding: 16px 14px 32px;
+    background: var(--c-bg);
+    font-family: "Microsoft YaHei", "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    color: var(--c-text);
+    line-height: 1.7;
+    font-size: var(--font-body);
+  }
+
+  .wrap { max-width: 960px; margin: 0 auto; }
+
+  /* ============ 顶部导航 ============ */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    gap: 8px;
+    padding: 10px 6px;
+    margin: -16px -14px 18px;
+    background: rgba(238, 243, 250, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(26, 58, 107, 0.08);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    flex: 0 0 auto;
+    color: var(--c-primary);
+    text-decoration: none;
+    font-size: var(--font-small);
+    font-weight: 600;
+    padding: 6px 14px;
+    border-radius: var(--radius-pill);
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(26, 58, 107, 0.08);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .nav a:hover, .nav a:active {
+    color: #fff;
+    background: var(--c-secondary);
+  }
+
+  /* ============ 片头 ============ */
+  .opening {
+    text-align: center;
+    background: linear-gradient(135deg, #1a3a6b, #0b6e99);
+    color: #fff;
+    padding: 34px 18px 28px;
+    border-radius: 20px;
+    margin: 0 0 26px;
+    box-shadow: 0 8px 24px rgba(26, 58, 107, 0.25);
+    position: relative;
+    overflow: hidden;
+  }
+  .opening::before {
+    content: "";
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+  }
+  .opening::after {
+    content: "";
+    position: absolute;
+    bottom: -30px; left: -30px;
+    width: 80px; height: 80px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+  }
+  .opening .label {
+    font-size: var(--font-tiny);
+    letter-spacing: 4px;
+    opacity: 0.75;
+    margin-bottom: 10px;
+  }
+  .opening h1 {
+    margin: 0 0 12px;
+    font-size: var(--font-title);
+    letter-spacing: 6px;
+    font-weight: 700;
+  }
+  .opening .subtitle {
+    margin: 0;
+    font-size: var(--font-subtitle);
+    letter-spacing: 2px;
+    opacity: 0.9;
+  }
+
+  /* ============ 章节标题 ============ */
+  h2 {
+    color: var(--c-secondary);
+    font-size: var(--font-h2);
+    margin: 32px 0 14px;
+    padding: 0 0 8px 4px;
+    border-bottom: 2px dashed #c8d8ea;
+    scroll-margin-top: 70px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    letter-spacing: 1px;
+  }
+  h2::after {
+    content: "";
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 60px; height: 2px;
+    background: linear-gradient(90deg, var(--c-secondary), transparent);
+    border-radius: 2px;
+  }
+  h2 .chapter {
+    font-size: var(--font-tiny);
+    color: var(--c-muted);
+    font-weight: normal;
+    letter-spacing: 2px;
+  }
+
+  /* ============ 表格 ============ */
+  .table-scroll {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: var(--radius-card);
+  }
+  table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+  th, td {
+    padding: 11px 12px;
+    border-bottom: 1px solid #eef3fa;
+    font-size: var(--font-small);
+    text-align: left;
+    vertical-align: middle;
+  }
+  th {
+    background: linear-gradient(135deg, #1a3a6b, #0b6e99);
+    color: #fff;
+    font-weight: 600;
+    white-space: nowrap;
+    letter-spacing: 1px;
+  }
+  tbody tr:nth-child(even) td { background: #f8fbff; }
+  tbody tr:hover td { background: #e8f1fb; }
+  tbody tr:last-child td { border-bottom: none; }
+
+  .date-badge {
+    display: inline-block;
+    background: #eef3fa;
+    color: var(--c-primary);
+    font-size: var(--font-tiny);
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  .city-tag {
+    display: inline-block;
+    font-size: var(--font-tiny);
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    color: #fff;
+  }
+  .city-tag.fuzhou { background: #2e8b57; }
+  .city-tag.pingtan { background: #00a0b0; }
+  .city-tag.quanzhou { background: #b0308a; }
+  .city-tag.xiamen { background: #2a6fdb; }
+  .city-tag.move { background: #8a99ad; }
+
+  /* ============ 交通图标 ============ */
+  .route {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 6px;
+    line-height: 1.9;
+  }
+  .route .spot {
+    font-size: var(--font-small);
+    color: var(--c-text);
+    white-space: nowrap;
+  }
+  .trans {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    font-size: var(--font-tiny);
+    background: #eef3fa;
+    color: var(--c-secondary);
+    padding: 1px 7px;
+    border-radius: 8px;
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+  .trans.rail {
+    background: linear-gradient(135deg, #1a3a6b, #0b6e99);
+    color: #fff;
+    font-weight: 600;
+    padding: 2px 9px;
+  }
+
+  /* ============ 城市卡片 ============ */
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .card {
+    position: relative;
+    background: #fff;
+    border-radius: var(--radius-card);
+    padding: 18px 16px 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    border: 1.5px dashed #d6e2f0;
+    border-top: 4px solid var(--c-secondary);
+    transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
+  }
+  .card:active { transform: scale(0.99); }
+
+  .card::after {
+    content: attr(data-watermark);
+    position: absolute;
+    top: 8px; right: 10px;
+    font-size: 40px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .card.fuzhou {
+    border-top-color: #2e8b57;
+    background: linear-gradient(180deg, #f0faf4, #fff 45%);
+  }
+  .card.pingtan {
+    border-top-color: #00a0b0;
+    background: linear-gradient(180deg, #eefafb, #fff 45%);
+  }
+  .card.quanzhou {
+    border-top-color: #b0308a;
+    background: linear-gradient(180deg, #fdf0f9, #fff 45%);
+  }
+  .card.xiamen {
+    border-top-color: #2a6fdb;
+    background: linear-gradient(180deg, #eef4ff, #fff 45%);
+  }
+
+  .card h3 {
+    margin: 0 0 12px;
+    font-size: var(--font-card-title);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .map {
+    font-size: var(--font-tiny);
+    font-weight: normal;
+    background: #eef3fa;
+    color: var(--c-secondary);
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .map:active { background: var(--c-secondary); color: #fff; }
+
+  .card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card li {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 9px;
+    font-size: var(--font-small);
+    line-height: 1.7;
+  }
+  .card li:last-child { margin-bottom: 0; }
+  .card li::before {
+    content: "◆";
+    color: var(--c-secondary);
+    position: absolute;
+    left: 0;
+    font-size: 10px;
+    top: 6px;
+  }
+  .card li b { color: var(--c-primary); }
+
+  /* ============ 片尾：演职员表 ============ */
+  .credits {
+    position: relative;
+    background: linear-gradient(180deg, #f5f0ff, #fff 45%);
+    border: 1.5px dashed #d9cdf0;
+    border-top: 4px solid #7a5fd0;
+    border-radius: var(--radius-card);
+    padding: 22px 18px 18px;
+    margin-top: 14px;
+    box-shadow: 0 4px 16px rgba(122, 95, 208, 0.1);
+    overflow: hidden;
+  }
+
+  .credits::after {
+    content: "🎬";
+    position: absolute;
+    top: 8px; right: 10px;
+    font-size: 40px;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  .credits .block { margin-bottom: 18px; }
+  .credits .block:last-child { margin-bottom: 0; }
+
+  .credits .block-title {
+    font-size: var(--font-tiny);
+    letter-spacing: 3px;
+    color: #7a5fd0;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .credits .cast {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 14px;
+  }
+  .credits .cast div {
+    font-size: var(--font-small);
+    text-align: center;
+    color: var(--c-primary);
+    font-weight: 600;
+  }
+  .credits .cast div span {
+    display: block;
+    font-size: var(--font-tiny);
+    color: var(--c-muted);
+    font-weight: normal;
+    letter-spacing: 1px;
+  }
+
+  .credits .note {
+    border-top: 1px dashed #e0d8f0;
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .credits .note li {
+    list-style: none;
+    font-size: var(--font-small);
+    line-height: 1.8;
+    margin-bottom: 6px;
+  }
+  .credits .note li:last-child { margin-bottom: 0; }
+
+  /* ============ 页脚字幕 ============ */
+  .footer {
+    text-align: center;
+    color: #8a99ad;
+    font-size: var(--font-small);
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px dashed #cdd8e6;
+    letter-spacing: 3px;
+  }
+  .footer .end {
+    display: block;
+    margin-top: 6px;
+    font-size: var(--font-tiny);
+    letter-spacing: 6px;
+    color: #b8c4d4;
+  }
+
+  /* ============ 平板 / 电脑 ============ */
+  @media (min-width: 640px) {
+    body { padding: 24px; }
+    .nav { margin: -24px -24px 22px; justify-content: center; gap: 14px; }
+    :root { --font-title: 28px; --font-body: 15px; }
+    .cards { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .credits .cast { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (min-width: 900px) {
+    :root { --font-title: 32px; }
+  }
+
+  /* ============ 打印 ============ */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .nav { display: none; }
+    .opening { border-radius: 0; box-shadow: none; }
+    .card, table, .credits { box-shadow: none; }
+    .card { break-inside: avoid; }
+    h2 { break-after: avoid; }
+    .table-scroll { overflow: visible; }
+    table { min-width: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav class="nav">
+    <a href="#overview">🎞️ 分镜</a>
+    <a href="#spots">📍 场景</a>
+    <a href="#clothing">👕 造型</a>
+    <a href="#tips">🎬 片尾</a>
+  </nav>
+
+  <!-- 片头 -->
+  <div class="opening">
+    <div class="label">A FILM BY FOUR GIRLS</div>
+    <h1>蜀夏 · 闽秋</h1>
+    <p class="subtitle">八年后，我们再出发</p>
+  </div>
+
+  <!-- 分镜 -->
+  <h2>🎞️ 分镜 <span class="chapter">SCENE LIST</span></h2>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>场次</th><th>地点</th><th>画面</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="date-badge">9.30 夜</span></td>
+          <td><span class="city-tag fuzhou">福州</span></td>
+          <td><div class="route"><span class="spot">抵达福州</span><span class="trans">🚕 打车</span><span class="spot">入住酒店</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.1</span></td>
+          <td><span class="city-tag fuzhou">福州</span></td>
+          <td><div class="route">
+            <span class="spot">三坊七巷</span><span class="trans">🚶 步行</span>
+            <span class="spot">上下杭</span><span class="trans">🚲 骑行</span>
+            <span class="spot">烟台山</span><span class="trans">🌙 夜游闽江</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.2 晨</span></td>
+          <td><span class="city-tag move">福州→平潭</span></td>
+          <td><div class="route"><span class="trans rail">🚄 高铁</span><span class="spot">福州 → 平潭</span></div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.2 午后</span></td>
+          <td><span class="city-tag pingtan">平潭</span></td>
+          <td><div class="route">
+            <span class="spot">北部生态廊道</span><span class="trans">🛵 电动车</span>
+            <span class="spot">长江澳风车田</span><span class="trans">🌇 看日落</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.3 晨</span></td>
+          <td><span class="city-tag move">平潭→泉州</span></td>
+          <td><div class="route">
+            <span class="spot">龙王头看日出</span>
+            <span class="trans rail">🚄 高铁</span>
+            <span class="spot">平潭 → 泉州</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.3 午后</span></td>
+          <td><span class="city-tag quanzhou">泉州</span></td>
+          <td><div class="route">
+            <span class="spot">开元寺</span><span class="trans">🚶 步行</span>
+            <span class="spot">西街</span><span class="trans">🚶 步行</span>
+            <span class="spot">钟楼</span><span class="trans">🚶 步行</span>
+            <span class="spot">关岳庙</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.4 晨</span></td>
+          <td><span class="city-tag quanzhou">泉州</span></td>
+          <td><div class="route">
+            <span class="spot">蟳埔渔村</span><span class="trans">🚕 打车</span>
+            <span class="spot">清净寺</span><span class="trans">🚶 步行</span>
+            <span class="spot">西街早午餐</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.4 午后</span></td>
+          <td><span class="city-tag move">泉州→厦门</span></td>
+          <td><div class="route">
+            <span class="trans rail">🚄 高铁</span>
+            <span class="spot">泉州 → 厦门</span><span class="trans">🚕 打车</span>
+            <span class="spot">沙坡尾夜景</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.5</span></td>
+          <td><span class="city-tag xiamen">厦门</span></td>
+          <td><div class="route">
+            <span class="spot">鼓浪屿</span><span class="trans">⛴️ 轮渡</span>
+            <span class="spot">笔山路小巷</span><span class="trans">🚶 步行</span>
+            <span class="spot">龙头路</span>
+          </div></td>
+        </tr>
+        <tr>
+          <td><span class="date-badge">10.6 晨</span></td>
+          <td><span class="city-tag xiamen">厦门返程</span></td>
+          <td><div class="route">
+            <span class="spot">八市</span><span class="trans">🚲 骑行</span>
+            <span class="spot">环岛路</span><span class="trans">🚕 打车</span>
+            <span class="spot">返程</span>
+          </div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 场景 -->
+  <h2>📍 场景 <span class="chapter">KEY SCENES</span></h2>
+  <div class="cards">
+
+    <div class="card fuzhou" data-watermark="🏙️">
+      <h3>🏙️ 福州 · 旧城慢镜 <a class="map" href="https://www.amap.com/search?query=福州" target="_blank">🗺️ 地图</a></h3>
+      <ul>
+        <li><b>三坊七巷</b>：拐进衣锦坊、文儒坊，镜头从白墙推到飞檐</li>
+        <li><b>上下杭</b>：旧时商埠，中西合璧的老建筑做背景</li>
+        <li><b>烟台山</b>：文艺街区，入夜后闽江灯火是空镜</li>
+        <li><b>吃什么</b>：永和鱼丸、同利肉燕、朱富贵火锅</li>
+      </ul>
+    </div>
+
+    <div class="card pingtan" data-watermark="🌊">
+      <h3>🌊 平潭 · 风与海 <a class="map" href="https://www.amap.com/search?query=平潭" target="_blank">🗺️ 地图</a></h3>
+      <ul>
+        <li><b>北部生态廊道</b>：风车、海景，下午拍到日落</li>
+        <li><b>长江澳风车田</b>：白色风车配橘色海面，全片最亮一帧</li>
+        <li><b>北港村</b>：花岗岩石厝，文艺咖啡馆做转场</li>
+        <li><b>龙王头沙滩</b>：10.3 早起，拍日出开场</li>
+      </ul>
+    </div>
+
+    <div class="card quanzhou" data-watermark="🏛️">
+      <h3>🏛️ 泉州 · 香火长镜 <a class="map" href="https://www.amap.com/search?query=泉州" target="_blank">🗺️ 地图</a></h3>
+      <ul>
+        <li><b>开元寺</b>：东西双塔，红墙古塔，长镜头慢慢推</li>
+        <li><b>西街 &amp; 钟楼</b>：边走边吃，市井烟火做背景音</li>
+        <li><b>蟳埔渔村</b>：簪花、蚵壳厝，人物特写</li>
+        <li><b>清净寺 &amp; 关岳庙</b>：多元信仰同框，安静的一镜</li>
+      </ul>
+    </div>
+
+    <div class="card xiamen" data-watermark="🏝️">
+      <h3>🏝️ 厦门 · 海风收尾 <a class="map" href="https://www.amap.com/search?query=厦门" target="_blank">🗺️ 地图</a></h3>
+      <ul>
+        <li><b>鼓浪屿</b>：提前抢 8 点前船票，钻笔山路小巷</li>
+        <li><b>沙坡尾 &amp; 演武大桥</b>：傍晚双子塔日落，全片高潮</li>
+        <li><b>环岛路 &amp; 黄厝沙滩</b>：租电动车骑行，黄厝看日出人少</li>
+        <li><b>八市</b>：阿杰五香、沙茶面，收尾的烟火气</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- 造型 -->
+  <h2>👕 造型 <span class="chapter">WARDROBE</span></h2>
+  <div class="table-scroll">
+    <table>
+      <thead>
+        <tr><th>城市</th><th>天气特点</th><th>穿搭建议</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🏙️ 福州</td><td>☀️ 白天 33~35℃，🌙 夜 24~25℃，温差大</td><td>短袖 + 薄外套，防晒必备</td></tr>
+        <tr><td>🌊 平潭</td><td>💨 风大 7~9 级，🌧️ 可能降雨，22~29℃</td><td>防风夹克/冲锋衣 + 雨衣，帽子带系绳</td></tr>
+        <tr><td>🏛️ 泉州</td><td>⛅ 30~33℃，多云偶有雨</td><td>清爽夏装 + 晴雨两用伞</td></tr>
+        <tr><td>🏝️ 厦门</td><td>⛈️ 31~33℃，多云有雷阵雨</td><td>夏装 + 晴雨伞，海边注意防晒防风</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 片尾：演职员表 -->
+  <h2>🎬 片尾 <span class="chapter">END CREDITS</span></h2>
+  <div class="credits">
+
+    <div class="block">
+      <div class="block-title">主 演</div>
+      <div class="cast">
+        <div>张小芸<span>饰 自己</span></div>
+        <div>唐燕<span>饰 自己</span></div>
+        <div>彭禹<span>饰 自己</span></div>
+        <div>李爽爽<span>饰 自己</span></div>
+      </div>
+    </div>
+
+    <div class="block note">
+      <div class="block-title">片 尾 提 示</div>
+      <ul>
+        <li>🎫 鼓浪屿船票、厦大参观名额，提前 3~7 天定闹钟抢</li>
+        <li>🌬️ 平潭风极大，雨伞不如雨衣实用，防风外套必带</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    同窗 · 同病 · 同游
+    <span class="end">青山不改 · 绿水长流 · 后会有期</span>
+  </div>
+
+</div>
+</body>
+</html>
